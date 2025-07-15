@@ -97,21 +97,22 @@ def lang_choice_gen(lang_choices):
 
 # TODO: Add in a response for adding a custom set up instruction if the user chooses Other.
 # Then we need to populate a text string based on the options selected
-# TODO: GitHub URL Text Option
 
 # Must be laid out in order of how you wish for the to appear in form.
-
-language_check = checkbox("Select which languages you are using", language_choice())
-
-instruction_opts = lang_choice_gen(language_check.results())
-
-instruction_check = checkbox("Select the instruction options from below:", instruction_opts)
 # Title
 titleQ = text("What Title would you like to give your project?")
-# Description
+# Project Repo URL
+urlQ = text("What is the GitHub Repo Url for the proejct?")
+# GitHub Deployment URL
+deployQ = text("Is there a deployment URL for this project?")
+# Project Description
 descriptionQ = tMulti("Please add your description here:")
-#Installation Instructions
+## Installation Instructions
+# Specify which languages our project uses
+language_check = checkbox("Select which languages you are using", language_choice())
+# Use the languages we choose to display the installation options
+instruction_check = checkbox("Select the instruction options from below:", lang_choice_gen(language_check.results()))
 print(titleQ.results())
 print(descriptionQ.results())
 print(language_check.results())
-print(instruction_opts)
+print(instruction_check.results())
