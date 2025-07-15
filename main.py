@@ -1,4 +1,5 @@
 from InquirerPy import inquirer
+from InquirerPy.separator import Separator
 
 class fItem:
     def __init__(self, tMess = ""):
@@ -34,20 +35,38 @@ def language_choice():
 def lang_choice_gen(lang_choices):
     def general_choice(): 
         return [
-            # General
+            Separator("General Setup"),
             "Clone the repository",
             "Navigate into the project directory",
             "Install dependencies",
             "Other (manually enter custom instructions)",
 
-            # GitHub Pages / Hosting
+            Separator("GitHub Pages/Hosting"),
             "Deploy with GitHub Pages",
             "Deploy with Netlify or Vercel",
             "Push to GitHub to trigger CI/CD deployment"
         ]
-
+    def html_choice():
+        return[
+            Separator("HTML/CSS"),
+            "Open index.html in your browser",
+            "Ensure assets (images, fonts, etc.) are in the correct folders",
+            "Link CSS and JS files correctly in HTML",
+            "Check browser compatibility (optional)"
+        ]
+    def js_choice():
+        return[
+            Separator("Javascript"),
+            "Install Node.js dependencies with npm",
+            "Install Node.js dependencies with yarn",
+            "Build the project with npm/yarn",
+            "Run the development server (e.g., npm start)",
+            "Run tests with npm/yarn",
+            "Configure environment variables (.env file)"
+        ]
     def python_choice():
         return[
+            Separator("Python"),
             "Create and activate a virtual environment (Python)",
             "Install dependencies with pip",
             "Install via requirements.txt",
@@ -57,26 +76,9 @@ def lang_choice_gen(lang_choices):
             "Start the Python application (e.g., python app.py)"
         ]
 
-    def js_choice():
-        return[
-            "Install Node.js dependencies with npm",
-            "Install Node.js dependencies with yarn",
-            "Build the project with npm/yarn",
-            "Run the development server (e.g., npm start)",
-            "Run tests with npm/yarn",
-            "Configure environment variables (.env file)"
-        ]
-
-    def html_choice():
-        return[
-            "Open index.html in your browser",
-            "Ensure assets (images, fonts, etc.) are in the correct folders",
-            "Link CSS and JS files correctly in HTML",
-            "Check browser compatibility (optional)"
-        ]
-
     def adv_choice():
         return[
+            Separator("Advanced Options"),
             "Install a CSS preprocessor (e.g., Sass, Less)",
             "Run a bundler (e.g., Webpack, Parcel)",
             "Start a local development server (e.g., Live Server, BrowserSync)",
@@ -86,8 +88,16 @@ def lang_choice_gen(lang_choices):
     for lang in lang_choices:
         if lang == "HTML/CSS":
             response.extend(html_choice())
+        if lang == "JavaScript":
+            response.extend(js_choice())
+        if lang == "Python":
+            response.extend(python_choice())
 
     return response
+
+# TODO: Add in a response for adding a custom set up instruction if the user chooses Other.
+# Then we need to populate a text string based on the options selected
+# TODO: GitHub URL Text Option
 
 # Must be laid out in order of how you wish for the to appear in form.
 
@@ -95,7 +105,7 @@ language_check = checkbox("Select which languages you are using", language_choic
 
 instruction_opts = lang_choice_gen(language_check.results())
 
-#instruction_check = checkbox("Select the instruction options from below:", instruction_opts)
+instruction_check = checkbox("Select the instruction options from below:", instruction_opts)
 # Title
 titleQ = text("What Title would you like to give your project?")
 # Description
