@@ -12,6 +12,9 @@ class tMulti(fItem):
     def __init__(self, tMess = ""):
         self.result = inquirer.text(message=tMess, multiline=True).execute()
 
+    def __str__(self):
+        return f"{self.result}"
+
 class text(fItem):
     def __init__(self, tMess = ""):
         self.result = inquirer.text(message=tMess).execute()
@@ -24,6 +27,32 @@ class checkbox(fItem):
             validate = lambda result: len (result) >= 1,
             invalid_message = "At least 1 items must be selected"
             ).execute()
+
+def usage_steps():
+    # create a response array
+    responseArr = []
+    stepCount = 1
+    # Loop until we say stop
+    while True:
+        stepResponse = ""
+        codeResponse = ""
+        # Run a new multi-line text field
+        stepResponse = f"{tMulti(f"Step {stepCount}:")}"
+        # ask if the user wants to add code
+        codePrompt = inquirer.confirm(message="Would you like to add code to this step?", default=False).execute()
+        if codePrompt:
+            codeResponse = tMulti(f"Code: ")
+            codeResponse = f"```{ codeResponse }```"
+        # add response to array
+        responseArr.append(stepResponse)
+        responseArr.append(codeResponse)
+        stepCount += 1
+        # ask if the user wants to add another step
+        stepPrompt = inquirer.confirm(message="Would you like to add another step?", default=True).execute()
+        if not stepPrompt: break
+    return responseArr
+
+
 
 def language_choice():
     return [
@@ -99,20 +128,26 @@ def lang_choice_gen(lang_choices):
 # Then we need to populate a text string based on the options selected
 
 # Must be laid out in order of how you wish for the to appear in form.
+print("This section is for usage instructions. You will be asked for each step in using the application, you will then be asked if you wish to add a code snippet for that step")
+usageQ = usage_steps() 
+
 # Title
-titleQ = text("What Title would you like to give your project?")
+#titleQ = text("What Title would you like to give your project?")
 # Project Repo URL
-urlQ = text("What is the GitHub Repo Url for the proejct?")
+#urlQ = text("What is the GitHub Repo Url for the proejct?")
 # GitHub Deployment URL
-deployQ = text("Is there a deployment URL for this project?")
+#deployQ = text("Is there a deployment URL for this project?")
 # Project Description
-descriptionQ = tMulti("Please add your description here:")
+#descriptionQ = tMulti("Please add your description here:")
+
 ## Installation Instructions
 # Specify which languages our project uses
-language_check = checkbox("Select which languages you are using", language_choice())
+#language_check = checkbox("Select which languages you are using", language_choice())
 # Use the languages we choose to display the installation options
-instruction_check = checkbox("Select the instruction options from below:", lang_choice_gen(language_check.results()))
-print(titleQ.results())
-print(descriptionQ.results())
-print(language_check.results())
-print(instruction_check.results())
+#instruction_check = checkbox("Select the instruction options from below:", lang_choice_gen(language_check.results()))
+
+#print(titleQ.results())
+#print(descriptionQ.results())
+#print(language_check.results())
+#print(instruction_check.results())
+print(usageQ)
