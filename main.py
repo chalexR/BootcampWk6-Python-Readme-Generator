@@ -9,13 +9,13 @@ class fItem:
             
     def results(self):
         return self.result
+    
+    def __str__(self):
+        return f"{self.result}"
 
 class tMulti(fItem):
     def __init__(self, tMess = ""):
         self.result = inquirer.text(message=tMess, multiline=True).execute()
-
-    def __str__(self):
-        return f"{self.result}"
 
 class text(fItem):
     def __init__(self, tMess = ""):
@@ -37,9 +37,6 @@ class dropdown(fItem):
             choices = dropChoice,
             default = None
         ).execute()
-
-    def __str__(self):
-        return f"{self.result}"
 
 def usage_steps():
     # create a response array
@@ -195,9 +192,12 @@ nameQ = text("Author Name:")
 ### File Formatting & Save
 
 ## Save
-file_path = str(pathlib.Path(__file__).parent.resolve())
+file_path = str(pathlib.Path(__file__).parent.resolve() )+ "/README.md"
+# TITLE
+file_cont = f"# {nameQ.results()} \n \n"
+# Desciption Here
+file_cont +="Section content goes here"
 
-file_path += "/README.md"
 
 with open(str(file_path), 'w') as file:
-    file.write(str(nameQ))
+    file.write(file_cont)
