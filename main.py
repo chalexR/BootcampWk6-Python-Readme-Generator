@@ -1,5 +1,7 @@
 from InquirerPy import inquirer
 from InquirerPy.separator import Separator
+import os
+import pathlib
 
 class fItem:
     def __init__(self, tMess = ""):
@@ -156,32 +158,32 @@ def license_opt():
 
 ## General Project Information
 # Title
-titleQ = text("What Title would you like to give your project?")
+#titleQ = text("What Title would you like to give your project?")
 # Project Repo URL
-urlQ = text("What is the GitHub Repo Url for the proejct?")
+#urlQ = text("What is the GitHub Repo Url for the proejct?")
 # GitHub Deployment URL
-deployQ = text("Is there a deployment URL for this project?")
+#deployQ = text("Is there a deployment URL for this project?")
 # Project Description
-descriptionQ = tMulti("Please add your description here:")
+#descriptionQ = tMulti("Please add your description here:")
 
 ## Installation Instructions
 # Specify which languages our project uses
-language_check = checkbox("Select which languages you are using", language_choice())
+#language_check = checkbox("Select which languages you are using", language_choice())
 # Use the languages we choose to display the installation options
-instruction_check = checkbox("Select the instruction options from below:", lang_choice_gen(language_check.results()))
+#instruction_check = checkbox("Select the instruction options from below:", lang_choice_gen(language_check.results()))
 
 ## Usage Instructions
-print("This section is for usage instructions. You will be asked for each step in using the application, you will then be asked if you wish to add a code snippet for that step")
-usageQ = usage_steps() 
+#print("This section is for usage instructions. You will be asked for each step in using the application, you will then be asked if you wish to add a code snippet for that step")
+#usageQ = usage_steps() 
 
 ## License Info
-licenseQ = dropdown("Select the license for the project:", license_opt())
+#licenseQ = dropdown("Select the license for the project:", license_opt())
 
 ## Author Info
 # Name
 nameQ = text("Author Name:")
-emailQ = text("Author Email:")
-webQ = text("Website Address:")
+# emailQ = text("Author Email:")
+# webQ = text("Website Address:")
 
 #print(titleQ.results())
 #print(descriptionQ.results())
@@ -189,3 +191,13 @@ webQ = text("Website Address:")
 #print(instruction_check.results())
 #print(usageQ)
 #print(licenseQ.results())
+
+### File Formatting & Save
+
+## Save
+file_path = str(pathlib.Path(__file__).parent.resolve())
+
+file_path += "/README.md"
+
+with open(str(file_path), 'w') as file:
+    file.write(str(nameQ))
