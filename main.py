@@ -28,6 +28,17 @@ class checkbox(fItem):
             invalid_message = "At least 1 items must be selected"
             ).execute()
 
+class dropdown(fItem):
+    def __init__(self, tMess, dropChoice = ""):
+        self.result = inquirer.select(
+            message = tMess,
+            choices = dropChoice,
+            default = None
+        ).execute()
+
+    def __str__(self):
+        return f"{self.result}"
+
 def usage_steps():
     # create a response array
     responseArr = []
@@ -124,30 +135,57 @@ def lang_choice_gen(lang_choices):
 
     return response
 
+def license_opt():
+    return [
+        "MIT License",
+        "Apache License 2.0",
+        "GNU General Public License (GPL v3)",
+        "GNU Lesser General Public License (LGPL v3)",
+        "BSD 2-Clause / 3-Clause License",
+        "Mozilla Public License 2.0 (MPL 2.0)",
+        Separator("Not for Code Projects"),
+        "Creative Commons (CC) Licenses"
+    ]
+
 # TODO: Add in a response for adding a custom set up instruction if the user chooses Other.
 # Then we need to populate a text string based on the options selected
 
-# Must be laid out in order of how you wish for the to appear in form.
-print("This section is for usage instructions. You will be asked for each step in using the application, you will then be asked if you wish to add a code snippet for that step")
-usageQ = usage_steps() 
+### BUILD THE FORM
 
+# Must be laid out in order of how you wish for the to appear in form.
+
+## General Project Information
 # Title
-#titleQ = text("What Title would you like to give your project?")
+titleQ = text("What Title would you like to give your project?")
 # Project Repo URL
-#urlQ = text("What is the GitHub Repo Url for the proejct?")
+urlQ = text("What is the GitHub Repo Url for the proejct?")
 # GitHub Deployment URL
-#deployQ = text("Is there a deployment URL for this project?")
+deployQ = text("Is there a deployment URL for this project?")
 # Project Description
-#descriptionQ = tMulti("Please add your description here:")
+descriptionQ = tMulti("Please add your description here:")
 
 ## Installation Instructions
 # Specify which languages our project uses
-#language_check = checkbox("Select which languages you are using", language_choice())
+language_check = checkbox("Select which languages you are using", language_choice())
 # Use the languages we choose to display the installation options
-#instruction_check = checkbox("Select the instruction options from below:", lang_choice_gen(language_check.results()))
+instruction_check = checkbox("Select the instruction options from below:", lang_choice_gen(language_check.results()))
+
+## Usage Instructions
+print("This section is for usage instructions. You will be asked for each step in using the application, you will then be asked if you wish to add a code snippet for that step")
+usageQ = usage_steps() 
+
+## License Info
+licenseQ = dropdown("Select the license for the project:", license_opt())
+
+## Author Info
+# Name
+nameQ = text("Author Name:")
+emailQ = text("Author Email:")
+webQ = text("Website Address:")
 
 #print(titleQ.results())
 #print(descriptionQ.results())
 #print(language_check.results())
 #print(instruction_check.results())
-print(usageQ)
+#print(usageQ)
+#print(licenseQ.results())
