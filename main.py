@@ -1,11 +1,14 @@
 from InquirerPy import inquirer
 from InquirerPy.separator import Separator
+from rich.style import Style
+from rich.console import Console
 import os
 import pathlib
 
 class fItem:
     def __init__(self, tMess = ""):
         self.tMess = tMess
+        self.result = ""
             
     def results(self):
         return self.result
@@ -15,11 +18,15 @@ class fItem:
 
 class tMulti(fItem):
     def __init__(self, tMess = ""):
-        self.result = inquirer.text(message=tMess, multiline=True).execute()
+        self.result = inquirer.text(
+            message=tMess, 
+            multiline=True).execute()
 
 class text(fItem):
     def __init__(self, tMess = ""):
-        self.result = inquirer.text(message=tMess).execute()
+        self.result = inquirer.text(
+            message=tMess
+            ).execute()
 
 class checkbox(fItem):
     def __init__(self, tMess = "", checkChoice = ""):
@@ -62,8 +69,27 @@ def usage_steps():
         if not stepPrompt: break
     return responseArr
 
+def instruction_cont(instr):
+    customCheck = False
+    funcResponse = "# Installation Instructions \n\n"
+    for data in instr:
+        if data == "Clone the repository":
+            funcResponse += f"### Clone the repository\n\n"
+            funcResponse += f"To get a local copy of this project up and running, clone the repository using:\n\n"
+            funcResponse += f"```bash git clone https://github.com/your-username/your-repo-name.git ```"
+            funcResponse += f"\n\n"
+            customCheck = True #use this to make sure the script knows you have edited the response
+        if data == "Navigate into the project directory":
+            funcResponse += f"### Navigate into the project directory\n\n"
+            funcResponse += f"Then navigate into the project directory:\n\n"
+            funcResponse += f"```bash cd your-repo-name ```"
+            funcResponse += f"\n\n"
+            customCheck = True #use this to make sure the script knows you have edited the response
+        if not customCheck:
+            funcResponse += f"{data}\n"
+    return funcResponse
 
-
+## Function to define and return the available coding languages
 def language_choice():
     return [
         "HTML/CSS",
@@ -71,6 +97,7 @@ def language_choice():
         "Python"
     ]
 
+## Function to take the selected coding languages and give the user back options for a chockbox
 def lang_choice_gen(lang_choices):
     def general_choice(): 
         return [
@@ -134,6 +161,7 @@ def lang_choice_gen(lang_choices):
 
     return response
 
+## Function to return Options for license options
 def license_opt():
     return [
         "MIT License",
@@ -152,8 +180,9 @@ def license_opt():
 ### BUILD THE FORM
 
 # Must be laid out in order of how you wish for the to appear in form.
-
+console = Console()
 ## General Project Information
+console.print("Add basic info for the project (project title, description, repoURL etc", style="bold green")
 # Title
 #titleQ = text("What Title would you like to give your project?")
 # Project Repo URL
@@ -164,15 +193,17 @@ def license_opt():
 #descriptionQ = tMulti("Please add your description here:")
 
 ## Installation Instructions
+console.print("Add Installation Instructions, this will give you multiple choices, simply add the ones that apply to the project.", style="bold green")
 # Specify which languages our project uses
-#language_check = checkbox("Select which languages you are using", language_choice())
+language_check = checkbox("Select which languages you are using", language_choice())
 # Use the languages we choose to display the installation options
-#instruction_check = checkbox("Select the instruction options from below:", lang_choice_gen(language_check.results()))
+instruction_check = checkbox("Select the instruction options from below:", lang_choice_gen(language_check.results()))
 
 ## Usage Instructions
-#print("This section is for usage instructions. You will be asked for each step in using the application, you will then be asked if you wish to add a code snippet for that step")
+console.print("This section is for usage instructions. You will be asked for each step in using the application, you will then be asked if you wish to add a code snippet for that step", style="bold green")
 #usageQ = usage_steps() 
 
+console.print("Add Licensing and Author Info", style="bold green")
 ## License Info
 #licenseQ = dropdown("Select the license for the project:", license_opt())
 
@@ -182,22 +213,26 @@ nameQ = text("Author Name:")
 # emailQ = text("Author Email:")
 # webQ = text("Website Address:")
 
-#print(titleQ.results())
-#print(descriptionQ.results())
-#print(language_check.results())
-#print(instruction_check.results())
-#print(usageQ)
-#print(licenseQ.results())
+#pTitle = titleQ.results()
+#pRepoURL = urlQ.results()
+#pDeplURL = deployQ.results()
+#pDesc = descriptionQ.results()
+pInstr = instruction_check.results()
+#pHowTo = usageQ
+#pLicence = licenseQ.results()
+pName = nameQ.results()
+#pEmail = emailQ.results()
+#pWebsite = webQ.results()
 
 ### File Formatting & Save
 
 ## Save
 file_path = str(pathlib.Path(__file__).parent.resolve() )+ "/README.md"
 # TITLE
-file_cont = f"# {nameQ.results()} \n \n"
-# Desciption Here
-file_cont +="Section content goes here"
+file_cont = f"# {pName} \n \n"
 
+# Install Instructions Here
+file_cont += instruction_cont(pInstr)
 
 with open(str(file_path), 'w') as file:
     file.write(file_cont)
