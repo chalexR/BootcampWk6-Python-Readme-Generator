@@ -69,25 +69,64 @@ def usage_steps():
         if not stepPrompt: break
     return responseArr
 
-def instruction_cont(instr):
+def instruction_cont(instr, repoURL = False):
     customCheck = False
     funcResponse = "# Installation Instructions \n\n"
+    if not repoURL:
+        repoURL = "https://github.com/your-username/your-repo-name.git"
     for data in instr:
+
         if data == "Clone the repository":
             funcResponse += f"### Clone the repository\n\n"
             funcResponse += f"To get a local copy of this project up and running, clone the repository using:\n\n"
-            funcResponse += f"```bash git clone https://github.com/your-username/your-repo-name.git ```"
+            funcResponse += f"```git clone {repoURL}```"
             funcResponse += f"\n\n"
             customCheck = True #use this to make sure the script knows you have edited the response
+
         if data == "Navigate into the project directory":
             funcResponse += f"### Navigate into the project directory\n\n"
             funcResponse += f"Then navigate into the project directory:\n\n"
-            funcResponse += f"```bash cd your-repo-name ```"
+            funcResponse += f"```cd your-repo-name```"
             funcResponse += f"\n\n"
             customCheck = True #use this to make sure the script knows you have edited the response
+
+        if data == "Install dependencies":
+            funcResponse += f"### Install Dependencies\n\n"
+            funcResponse += f"## Python (with pip)"
+            funcResponse += f"If you’re using Python, make sure your virtual environment is activated, then run:\n\n"
+            funcResponse += f"```pip install -r requirements.txt```"
+            funcResponse += f"\n\n"
+            customCheck = True #use this to make sure the script knows you have edited the response
+
+        if data == "Create and activate a virtual environment":
+            funcResponse += f"### Create and Activate a Virtual Environment\n\n"
+            funcResponse += f"It is recommended to use a virtual environment to manage dependencies. To create and activate one:"
+            funcResponse += f"## macOS / Linux"
+            funcResponse += f"```python3 -m venv venv\nsource venv/bin/activate```"
+            funcResponse += f"## Windows"
+            funcResponse += f"```python -m venv venv\nvenv\Scripts\activate```"
+            funcResponse += f"Once activated, your terminal prompt should change (e.g., (venv)), and you can proceed to install dependencies."
+            funcResponse += f"\n\n"
+            customCheck = True #use this to make sure the script knows you have edited the response
+        
+        if data == "Start the Python application":
+            funcResponse += f"### Start the Python Application\n\n"
+            funcResponse += f"After activating your virtual environment and installing dependencies, you can run the application with:"
+            funcResponse += f"```python main.py```"
+            funcResponse += f"* *Replace main.py with your actual entry-point file name if different.* *"
+            funcResponse += f"If your project requires environment variables or setup steps before running, make sure those are completed first."
+            funcResponse += f"\n\n"
+            customCheck = True #use this to make sure the script knows you have edited the response
+
         if not customCheck:
             funcResponse += f"{data}\n"
     return funcResponse
+
+def license_cont(license, name):
+    if license == "MIT License":
+        return f'# MIT License\n\nCopyright (c) 2025 [your name]\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the following conditions:\n[Full license: https://opensource.org/licenses/MIT]'
+    else:
+        return license
 
 ## Function to define and return the available coding languages
 def language_choice():
@@ -133,13 +172,13 @@ def lang_choice_gen(lang_choices):
     def python_choice():
         return[
             Separator("Python"),
-            "Create and activate a virtual environment (Python)",
+            "Create and activate a virtual environment",
             "Install dependencies with pip",
             "Install via requirements.txt",
             "Set environment variables",
             "Run a setup script",
             "Run initial database migrations (Django/Flask/etc)",
-            "Start the Python application (e.g., python app.py)"
+            "Start the Python application"
         ]
 
     def adv_choice():
@@ -184,13 +223,13 @@ console = Console()
 ## General Project Information
 console.print("Add basic info for the project (project title, description, repoURL etc", style="bold green")
 # Title
-#titleQ = text("What Title would you like to give your project?")
+titleQ = text("What Title would you like to give your project?")
 # Project Repo URL
-#urlQ = text("What is the GitHub Repo Url for the proejct?")
+urlQ = text("What is the GitHub Repo Url for the proejct?")
 # GitHub Deployment URL
-#deployQ = text("Is there a deployment URL for this project?")
+deployQ = text("Is there a deployment URL for this project?")
 # Project Description
-#descriptionQ = tMulti("Please add your description here:")
+descriptionQ = tMulti("Please add your description here:")
 
 ## Installation Instructions
 console.print("Add Installation Instructions, this will give you multiple choices, simply add the ones that apply to the project.", style="bold green")
@@ -201,38 +240,56 @@ instruction_check = checkbox("Select the instruction options from below:", lang_
 
 ## Usage Instructions
 console.print("This section is for usage instructions. You will be asked for each step in using the application, you will then be asked if you wish to add a code snippet for that step", style="bold green")
-#usageQ = usage_steps() 
+usageQ = usage_steps() 
 
 console.print("Add Licensing and Author Info", style="bold green")
 ## License Info
-#licenseQ = dropdown("Select the license for the project:", license_opt())
+licenseQ = dropdown("Select the license for the project:", license_opt())
 
 ## Author Info
 # Name
 nameQ = text("Author Name:")
-# emailQ = text("Author Email:")
-# webQ = text("Website Address:")
+emailQ = text("Author Email:")
+webQ = text("Website Address:")
 
-#pTitle = titleQ.results()
-#pRepoURL = urlQ.results()
-#pDeplURL = deployQ.results()
-#pDesc = descriptionQ.results()
+### BUILD OUT VARIABLES
+
+pTitle = titleQ.results()
+pRepoURL = urlQ.results()
+pDeplURL = deployQ.results()
+pDesc = descriptionQ.results()
 pInstr = instruction_check.results()
-#pHowTo = usageQ
-#pLicence = licenseQ.results()
+pHowTo = usageQ
+pLicense = licenseQ.results()
 pName = nameQ.results()
-#pEmail = emailQ.results()
-#pWebsite = webQ.results()
+pEmail = emailQ.results()
+pWebsite = webQ.results()
 
 ### File Formatting & Save
 
 ## Save
 file_path = str(pathlib.Path(__file__).parent.resolve() )+ "/README.md"
 # TITLE
-file_cont = f"# {pName} \n \n"
-
+file_cont = f"# {pTitle} \n \n"
+# Description
+file_cont += f"{pDesc}"
 # Install Instructions Here
 file_cont += instruction_cont(pInstr)
+# Usage Instructions
+file_cont += f"{pHowTo}"
+file_cont += f"{instruction_cont(pInstr)}"
+# Usage Instructions
+file_cont += f"{license_cont(pLicense, pName)}"
+# Build Author Section
+file_cont += f"### Author Information"
+# Usage Instructions
+file_cont += f"Name: {pName}"
+# Usage Instructions
+file_cont += f"Email: {pEmail}"
+# Usage Instructions
+file_cont += f"Website: {pWebsite}"
 
 with open(str(file_path), 'w') as file:
     file.write(file_cont)
+
+console.print("FILE CREATED!")
