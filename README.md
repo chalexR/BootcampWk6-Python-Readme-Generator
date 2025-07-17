@@ -1,4 +1,4 @@
-# Bootcamp Wk6 - Readme File Generator in Python 
+# Bootcamp Wk6 – First Python Script – GitHub Markdown README.md generator 
  
 This project is my first Python script written entirely from scratch, built as part of my learning journey into Python programming. The main goal was not to create a polished tool, but to understand the core concepts of Python, such as functions, classes, and user input handling, while exploring libraries like InquirerPy and Rich.
 
@@ -6,63 +6,89 @@ I built this while on holiday, so time was limited and I was not able to finish 
 
 Over the next few weeks, I plan to expand the content generation system further, particularly to better support multiple languages (HTML, CSS, JavaScript, and Python) in GitHub README files.# Installation Instructions 
 
-### Clone the repository
+## Clone the repository
 
 To get a local copy of this project up and running, clone the repository using:
 
-```git clone https://github.com/your-username/your-repo-name.git```
+```
+git clone https://github.com/your-username/your-repo-name.git
+```
 
-### Navigate into the project directory
+## Navigate into the project directory
 
 Then navigate into the project directory:
 
-```cd your-repo-name```
+```
+cd your-repo-name
+```
 
-### Install Dependencies
+## Install Dependencies
 
-## Python (with pip)If you’re using Python, make sure your virtual environment is activated, then run:
+### Python (with pip)
+If you’re using Python, make sure your virtual environment is activated, then run:
 
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 
-### Create and Activate a Virtual Environment
+## Create and Activate a Virtual Environment
 
-It is recommended to use a virtual environment to manage dependencies. To create and activate one:## macOS / Linux```python3 -m venv venv
-source venv/bin/activate```## Windows```python -m venv venv
-venv\Scriptsctivate```Once activated, your terminal prompt should change (e.g., (venv)), and you can proceed to install dependencies.
+It is recommended to use a virtual environment to manage dependencies. To create and activate one:### macOS / Linux```
+python3 -m venv venv
+source venv/bin/activate
+```### Windows```
+python -m venv venv
+venv\Scriptsctivate
+```Once activated, your terminal prompt should change (e.g., (venv)), and you can proceed to install dependencies.
 
-### Start the Python Application
+## Start the Python Application
 
-After activating your virtual environment and installing dependencies, you can run the application with:```python main.py```* *Replace main.py with your actual entry-point file name if different.* *If your project requires environment variables or setup steps before running, make sure those are completed first.
+After activating your virtual environment and installing dependencies, you can run the application with:```
+python main.py
+```* *Replace main.py with your actual entry-point file name if different.* *If your project requires environment variables or setup steps before running, make sure those are completed first.
 
-['Run the main script and instructions will guide you through multiple questions to build you a new README.md file for any projects', '', 'Make sure to add as much information as possible!', '```python main.py```']# Installation Instructions 
+['Follow the installation instructions to install and then run using', '```python main.py```', 'Instructions will appear in green, follow the instructions until the form is complete\n', '', 'Upload the readme.md to github', '']# Installation Instructions 
 
-### Clone the repository
+## Clone the repository
 
 To get a local copy of this project up and running, clone the repository using:
 
-```git clone https://github.com/your-username/your-repo-name.git```
+```
+git clone https://github.com/your-username/your-repo-name.git
+```
 
-### Navigate into the project directory
+## Navigate into the project directory
 
 Then navigate into the project directory:
 
-```cd your-repo-name```
+```
+cd your-repo-name
+```
 
-### Install Dependencies
+## Install Dependencies
 
-## Python (with pip)If you’re using Python, make sure your virtual environment is activated, then run:
+### Python (with pip)
+If you’re using Python, make sure your virtual environment is activated, then run:
 
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 
-### Create and Activate a Virtual Environment
+## Create and Activate a Virtual Environment
 
-It is recommended to use a virtual environment to manage dependencies. To create and activate one:## macOS / Linux```python3 -m venv venv
-source venv/bin/activate```## Windows```python -m venv venv
-venv\Scriptsctivate```Once activated, your terminal prompt should change (e.g., (venv)), and you can proceed to install dependencies.
+It is recommended to use a virtual environment to manage dependencies. To create and activate one:### macOS / Linux```
+python3 -m venv venv
+source venv/bin/activate
+```### Windows```
+python -m venv venv
+venv\Scriptsctivate
+```Once activated, your terminal prompt should change (e.g., (venv)), and you can proceed to install dependencies.
 
-### Start the Python Application
+## Start the Python Application
 
-After activating your virtual environment and installing dependencies, you can run the application with:```python main.py```* *Replace main.py with your actual entry-point file name if different.* *If your project requires environment variables or setup steps before running, make sure those are completed first.
+After activating your virtual environment and installing dependencies, you can run the application with:```
+python main.py
+```* *Replace main.py with your actual entry-point file name if different.* *If your project requires environment variables or setup steps before running, make sure those are completed first.
 
 # MIT License
 

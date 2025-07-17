@@ -77,42 +77,42 @@ def instruction_cont(instr, repoURL = False):
     for data in instr:
 
         if data == "Clone the repository":
-            funcResponse += f"### Clone the repository\n\n"
+            funcResponse += f"## Clone the repository\n\n"
             funcResponse += f"To get a local copy of this project up and running, clone the repository using:\n\n"
-            funcResponse += f"```git clone {repoURL}```"
+            funcResponse += f"```\ngit clone {repoURL}\n```"
             funcResponse += f"\n\n"
             customCheck = True #use this to make sure the script knows you have edited the response
 
         if data == "Navigate into the project directory":
-            funcResponse += f"### Navigate into the project directory\n\n"
+            funcResponse += f"## Navigate into the project directory\n\n"
             funcResponse += f"Then navigate into the project directory:\n\n"
-            funcResponse += f"```cd your-repo-name```"
+            funcResponse += f"```\ncd your-repo-name\n```"
             funcResponse += f"\n\n"
             customCheck = True #use this to make sure the script knows you have edited the response
 
         if data == "Install dependencies":
-            funcResponse += f"### Install Dependencies\n\n"
-            funcResponse += f"## Python (with pip)"
+            funcResponse += f"## Install Dependencies\n\n"
+            funcResponse += f"### Python (with pip)\n"
             funcResponse += f"If you’re using Python, make sure your virtual environment is activated, then run:\n\n"
-            funcResponse += f"```pip install -r requirements.txt```"
+            funcResponse += f"```\npip install -r requirements.txt\n```"
             funcResponse += f"\n\n"
             customCheck = True #use this to make sure the script knows you have edited the response
 
         if data == "Create and activate a virtual environment":
-            funcResponse += f"### Create and Activate a Virtual Environment\n\n"
+            funcResponse += f"## Create and Activate a Virtual Environment\n\n"
             funcResponse += f"It is recommended to use a virtual environment to manage dependencies. To create and activate one:"
-            funcResponse += f"## macOS / Linux"
-            funcResponse += f"```python3 -m venv venv\nsource venv/bin/activate```"
-            funcResponse += f"## Windows"
-            funcResponse += f"```python -m venv venv\nvenv\Scripts\activate```"
+            funcResponse += f"### macOS / Linux"
+            funcResponse += f"```\npython3 -m venv venv\nsource venv/bin/activate\n```"
+            funcResponse += f"### Windows"
+            funcResponse += f"```\npython -m venv venv\nvenv\Scripts\activate\n```"
             funcResponse += f"Once activated, your terminal prompt should change (e.g., (venv)), and you can proceed to install dependencies."
             funcResponse += f"\n\n"
             customCheck = True #use this to make sure the script knows you have edited the response
         
         if data == "Start the Python application":
-            funcResponse += f"### Start the Python Application\n\n"
+            funcResponse += f"## Start the Python Application\n\n"
             funcResponse += f"After activating your virtual environment and installing dependencies, you can run the application with:"
-            funcResponse += f"```python main.py```"
+            funcResponse += f"```\npython main.py\n```"
             funcResponse += f"* *Replace main.py with your actual entry-point file name if different.* *"
             funcResponse += f"If your project requires environment variables or setup steps before running, make sure those are completed first."
             funcResponse += f"\n\n"
@@ -225,7 +225,7 @@ console.print("Add basic info for the project (project title, description, repoU
 # Title
 titleQ = text("What Title would you like to give your project?")
 # Project Repo URL
-urlQ = text("What is the GitHub Repo Url for the proejct?")
+urlQ = text("What is the GitHub Repo Url for the project?")
 # GitHub Deployment URL
 deployQ = text("Is there a deployment URL for this project?")
 # Project Description
