@@ -59,7 +59,7 @@ def usage_steps():
         codePrompt = inquirer.confirm(message="Would you like to add code to this step?", default=False).execute()
         if codePrompt:
             codeResponse = tMulti(f"Code: ")
-            codeResponse = f"```\n{ codeResponse }```\n\n"
+            codeResponse = f"```\n{ codeResponse }\n```"
         # add response to array
         responseArr.append(stepResponse)
         responseArr.append(codeResponse)
@@ -101,19 +101,19 @@ def instruction_cont(instr, repoURL = False):
         if data == "Create and activate a virtual environment":
             funcResponse += f"## Create and Activate a Virtual Environment\n\n"
             funcResponse += f"It is recommended to use a virtual environment to manage dependencies. To create and activate one:\n"
-            funcResponse += f"### macOS / Linux"
-            funcResponse += f"```\npython3 -m venv venv\nsource venv/bin/activate\n```"
-            funcResponse += f"### Windows"
-            funcResponse += f"```\npython -m venv venv\nvenv\Scripts\activate\n```"
+            funcResponse += f"### macOS / Linux\n"
+            funcResponse += f"```\npython3 -m venv venv\nsource venv/bin/activate\n```\n"
+            funcResponse += f"### Windows\n"
+            funcResponse += f"```\npython -m venv venv\nvenv\Scripts\activate\n```\n"
             funcResponse += f"Once activated, your terminal prompt should change (e.g., (venv)), and you can proceed to install dependencies."
             funcResponse += f"\n\n"
             customCheck = True #use this to make sure the script knows you have edited the response
         
         if data == "Start the Python application":
             funcResponse += f"## Start the Python Application\n\n"
-            funcResponse += f"After activating your virtual environment and installing dependencies, you can run the application with:"
-            funcResponse += f"```\npython main.py\n```"
-            funcResponse += f"* *Replace main.py with your actual entry-point file name if different.* *"
+            funcResponse += f"After activating your virtual environment and installing dependencies, you can run the application with:\n"
+            funcResponse += f"```\npython main.py\n```\n"
+            funcResponse += f"* *Replace main.py with your actual entry-point file name if different.* *\n\n"
             funcResponse += f"If your project requires environment variables or setup steps before running, make sure those are completed first."
             funcResponse += f"\n\n"
             customCheck = True #use this to make sure the script knows you have edited the response
@@ -287,11 +287,11 @@ file_cont += f"{license_cont(pLicense, pName)}"
 # Build Author Section
 file_cont += f"# Author Information\n\n"
 # Usage Instructions
-file_cont += f"Name: {pName}"
+file_cont += f"Name: {pName}\n"
 # Usage Instructions
-file_cont += f"Email: {pEmail}"
+file_cont += f"Email: {pEmail}\n"
 # Usage Instructions
-file_cont += f"Website: {pWebsite}"
+file_cont += f"Website: {pWebsite}\n"
 
 with open(str(file_path), 'w') as file:
     file.write(file_cont)

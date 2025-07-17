@@ -42,7 +42,8 @@ source venv/bin/activate
 ```
 python -m venv venv
 venv\Scriptsctivate
-```Once activated, your terminal prompt should change (e.g., (venv)), and you can proceed to install dependencies.
+```
+Once activated, your terminal prompt should change (e.g., (venv)), and you can proceed to install dependencies.
 
 ## Start the Python Application
 
@@ -50,18 +51,17 @@ After activating your virtual environment and installing dependencies, you can r
 ```
 python main.py
 ```
-* *Replace main.py with your actual entry-point file name if different.* *If your project requires environment variables or setup steps before running, make sure those are completed first.
+* *Replace main.py with your actual entry-point file name if different.* *
+
+If your project requires environment variables or setup steps before running, make sure those are completed first.
 
 # How To Use the Script
 
 Follow the installation instructions and then run the script using:
 
-
 ```
 python main.py
 ```
-
-
 Instructions will appear in green, follow the instructions until the form is complete
 
 Upload the readme.md to github
@@ -76,4 +76,6 @@ Copyright (c) 2025 Charles Richer
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the following conditions:
 [Full license: https://opensource.org/licenses/MIT]# Author Information
 
-Name: Charles RicherEmail: chalex.richer@gmail.comWebsite: comingsoon.com
+Name: Charles Richer
+Email: chalex.richer@gmail.com
+Website: comingsoon.com
