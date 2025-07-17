@@ -59,7 +59,7 @@ def usage_steps():
         codePrompt = inquirer.confirm(message="Would you like to add code to this step?", default=False).execute()
         if codePrompt:
             codeResponse = tMulti(f"Code: ")
-            codeResponse = f"```{ codeResponse }```"
+            codeResponse = f"```\n{ codeResponse }```\n\n"
         # add response to array
         responseArr.append(stepResponse)
         responseArr.append(codeResponse)
@@ -71,7 +71,7 @@ def usage_steps():
 
 def instruction_cont(instr, repoURL = False):
     customCheck = False
-    funcResponse = "# Installation Instructions \n\n"
+    funcResponse = ""
     if not repoURL:
         repoURL = "https://github.com/your-username/your-repo-name.git"
     for data in instr:
@@ -100,7 +100,7 @@ def instruction_cont(instr, repoURL = False):
 
         if data == "Create and activate a virtual environment":
             funcResponse += f"## Create and Activate a Virtual Environment\n\n"
-            funcResponse += f"It is recommended to use a virtual environment to manage dependencies. To create and activate one:"
+            funcResponse += f"It is recommended to use a virtual environment to manage dependencies. To create and activate one:\n"
             funcResponse += f"### macOS / Linux"
             funcResponse += f"```\npython3 -m venv venv\nsource venv/bin/activate\n```"
             funcResponse += f"### Windows"
@@ -124,7 +124,7 @@ def instruction_cont(instr, repoURL = False):
 
 def license_cont(license, name):
     if license == "MIT License":
-        return f'# MIT License\n\nCopyright (c) 2025 [your name]\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the following conditions:\n[Full license: https://opensource.org/licenses/MIT]'
+        return f'# MIT License\n\nCopyright (c) 2025 {name}\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the following conditions:\n[Full license: https://opensource.org/licenses/MIT]'
     else:
         return license
 
@@ -274,17 +274,18 @@ file_cont = f"# {pTitle} \n \n"
 # Description
 file_cont += f"{pDesc}"
 # Install Instructions Here
-file_cont += f"# Installation Instructions"
+file_cont += f"# Installation Instructions\n\n"
 file_cont += instruction_cont(pInstr)
 # Usage Instructions
-file_cont += f"# How To Use the Script"
-file_cont += f"{pHowTo}"
-file_cont += f"{instruction_cont(pInstr)}"
+file_cont += f"# How To Use the Script\n\n"
+for data in pHowTo:
+    file_cont += f"{data}\n"
+file_cont += f"\n"
 # Usage Instructions
-file_cont += f"# License Details"
+file_cont += f"# License Details\n\n"
 file_cont += f"{license_cont(pLicense, pName)}"
 # Build Author Section
-file_cont += f"# Author Information"
+file_cont += f"# Author Information\n\n"
 # Usage Instructions
 file_cont += f"Name: {pName}"
 # Usage Instructions
