@@ -274,14 +274,17 @@ file_cont = f"# {pTitle} \n \n"
 # Description
 file_cont += f"{pDesc}"
 # Install Instructions Here
+file_cont += f"# Installation Instructions"
 file_cont += instruction_cont(pInstr)
 # Usage Instructions
+file_cont += f"# How To Use the Script"
 file_cont += f"{pHowTo}"
 file_cont += f"{instruction_cont(pInstr)}"
 # Usage Instructions
+file_cont += f"# License Details"
 file_cont += f"{license_cont(pLicense, pName)}"
 # Build Author Section
-file_cont += f"### Author Information"
+file_cont += f"# Author Information"
 # Usage Instructions
 file_cont += f"Name: {pName}"
 # Usage Instructions
